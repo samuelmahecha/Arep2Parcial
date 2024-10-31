@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Algorithms</title>
+</head>
+<body>
+<h1>Search Algorithms</h1>
+<div>
+    <h2>Linear Search</h2>
+    <form id="linearSearchForm">
+        <label for="linearList">List (comma-separated):</label>
+        <input type="text" id="linearList" required>
+        <label for="linearValue">Value to search:</label>
+        <input type="text" id="linearValue" required>
+        <button type="submit">Search</button>
+    </form>
+    <p id="linearResult"></p>
+</div>
+
+<div>
+    <h2>Binary Search</h2>
+    <form id="binarySearchForm">
+        <label for="binaryList">Ordered List (comma-separated):</label>
+        <input type="text" id="binaryList" required>
+        <label for="binaryValue">Value to search:</label>
+        <input type="text" id="binaryValue" required>
+        <button type="submit">Search</button>
+    </form>
+    <p id="binaryResult"></p>
+</div>
+
+<script>
+    async function fetchSearch(url, resultId) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            document.getElementById(resultId).textContent = `Result: ${data.output}`;
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById(resultId).textContent = 'Error fetching search result';
+        }
+    }
+
+    document.getElementById('linearSearchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const list = document.getElementById('linearList').value;
+        const value = document.getElementById('linearValue').value;
+const url = `http://your-proxy-address:proxy-port/linearsearch?list=${list}&value=${value}`;
+        fetchSearch(url, 'linearResult');
+    });
+
+    document.getElementById('binarySearchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const list = document.getElementById('binaryList').value;
+        const value = document.getElementById('binaryValue').value;
+const url = `http://your-proxy-address:proxy-port/binarysearch?list=${list}&value=${value}`;
+        fetchSearch(url, 'binaryResult');
+    });
+</script>
+</body>
+</html>
