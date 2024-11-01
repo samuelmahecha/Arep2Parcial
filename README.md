@@ -13,6 +13,15 @@
 
 - Busqueda binaria: Requiere una lista ordenada y emplea un enfoque dividir repetidamente el conjunto de datos por la mitad hasta encontrar el valor buscado o hasta que no queden mas elementos por dividir, es mas eficiente en listas ordenadas grandes.
 
+**Flujo General de Funcionamiento**
+1. El usuario ingresa datos en el formulario del cliente web (index.html).
+2. El cliente web envía la solicitud al proxy (ServiceProxy) a través de la URL del proxy (/service/linearsearch o /service/binarysearch).
+3. El proxy selecciona una de las instancias de servicio de búsqueda (usando el método getNextInstance()).
+4. El proxy redirige la solicitud a la instancia de servicio correspondiente y obtiene la respuesta.
+5. El proxy devuelve la respuesta al cliente web.
+6. El cliente web muestra el resultado de la búsqueda en la página.
+- Este flujo permite un balanceo de carga simple entre las instancias de los servicios de búsqueda, lo que mejora la eficiencia y la capacidad de respuesta de la aplicación.
+
 
 **Pruebas de funcionamiento local**
 ![image](https://github.com/user-attachments/assets/205a6ec2-f4a6-4886-b924-dc4112a38df1)
@@ -23,3 +32,22 @@
 
 ![image](https://github.com/user-attachments/assets/702bc531-9268-461d-958d-5cf9236e65b7)
 
+**Video Funcionamiento en AWS**
+
+
+https://github.com/user-attachments/assets/1c5be3bc-8dfa-4171-b480-dde796fa357e
+
+- Arquitectura de Solicitudes
+
+* Cliente Web:
+
+- El cliente web envía solicitudes al Proxy (una única URL).
+
+* Proxy:
+
+- El proxy recibe las solicitudes del cliente web y decide a cuál de los dos servicios de ordenamiento redirigir la solicitud utilizando un algoritmo de round-robin.
+  Una vez que el proxy recibe la respuesta del servicio de ordenamiento, devuelve esta respuesta al cliente web.
+
+* Servicios de Ordenamiento:
+
+- Los servicios de ordenamiento realizan la búsqueda solicitada (búsqueda lineal o búsqueda binaria) y devuelven el resultado al proxy.
