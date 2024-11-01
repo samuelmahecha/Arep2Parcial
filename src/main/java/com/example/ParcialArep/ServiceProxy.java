@@ -1,4 +1,4 @@
-package com.example.ProxyApp.controller;
+package com.example.ParcialArep;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,13 +23,13 @@ public class ServiceProxy {
         return counter.getAndIncrement() % 2 == 0 ? backendInstance1 : backendInstance2;
     }
 
-    @GetMapping("/linearsearch")
+    @GetMapping("/service/linearsearch")
     public String linearSearch(@RequestParam("list") String list, @RequestParam("value") String value) {
         String url = getNextInstance() + "/linearsearch?list=" + list + "&value=" + value;
         return new RestTemplate().getForObject(url, String.class);
     }
 
-    @GetMapping("/binarysearch")
+    @GetMapping("/service/binarysearch")
     public String binarySearch(@RequestParam("list") String list, @RequestParam("value") String value) {
         String url = getNextInstance() + "/binarysearch?list=" + list + "&value=" + value;
         return new RestTemplate().getForObject(url, String.class);

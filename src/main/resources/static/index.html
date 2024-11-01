@@ -37,7 +37,7 @@
             const response = await fetch(url);
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
-            document.getElementById(resultId).textContent = `Result: ${data.output}`;
+            document.getElementById(resultId).textContent = `Result: ${data.output}`; // Asegúrate de que 'output' existe en el JSON de respuesta
         } catch (error) {
             console.error('Error:', error);
             document.getElementById(resultId).textContent = 'Error fetching search result';
@@ -48,7 +48,7 @@
         event.preventDefault();
         const list = document.getElementById('linearList').value;
         const value = document.getElementById('linearValue').value;
-const url = `http://your-proxy-address:proxy-port/linearsearch?list=${list}&value=${value}`;
+        const url = `http://localhost:8080/linearsearch?list=${list}&value=${value}`; // Cambia esto por tu dirección real
         fetchSearch(url, 'linearResult');
     });
 
@@ -56,7 +56,7 @@ const url = `http://your-proxy-address:proxy-port/linearsearch?list=${list}&valu
         event.preventDefault();
         const list = document.getElementById('binaryList').value;
         const value = document.getElementById('binaryValue').value;
-const url = `http://your-proxy-address:proxy-port/binarysearch?list=${list}&value=${value}`;
+        const url = `http://localhost:8080/binarysearch?list=${list}&value=${value}`; // Cambia esto por tu dirección real
         fetchSearch(url, 'binaryResult');
     });
 </script>
